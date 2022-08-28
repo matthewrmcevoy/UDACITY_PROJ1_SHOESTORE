@@ -31,6 +31,9 @@ class ShoeDetailFragment : Fragment() {
             viewModel.saveShoe(binding.shoeNameEdit.text.toString(),binding.shoeSizeEdit.text.toString().toDouble(),binding.shoeBrandEdit.text.toString(),binding.shoeDescEdit.text.toString())
             findNavController().navigate(ShoeDetailFragmentDirections.actionShoeDetailFragmentToShoeListFragment())
         }
+        binding.shoeCancelBttn.setOnClickListener {
+            findNavController().navigate(ShoeDetailFragmentDirections.actionShoeDetailFragmentToShoeListFragment())
+        }
 
         return binding.root
     }

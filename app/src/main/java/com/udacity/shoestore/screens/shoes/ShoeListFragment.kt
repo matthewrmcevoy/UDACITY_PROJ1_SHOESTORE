@@ -1,9 +1,7 @@
 package com.udacity.shoestore.screens.shoes
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -13,7 +11,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.udacity.shoestore.R
 import com.udacity.shoestore.databinding.ShoeEntryBinding
 import com.udacity.shoestore.databinding.ShoelistFragmentBinding
@@ -36,7 +36,6 @@ class ShoeListFragment : Fragment() {
         val binding: ShoelistFragmentBinding = DataBindingUtil.inflate(
             inflater, R.layout.shoelist_fragment, container, false
         )
-
         binding.lifecycleOwner = this
 
         viewModel.shoesList.observe(viewLifecycleOwner, Observer{ shoeList->
@@ -58,8 +57,18 @@ class ShoeListFragment : Fragment() {
         binding.addShoeBttn.setOnClickListener{
         findNavController().navigate(ShoeListFragmentDirections.actionShoeListFragmentToShoeDetailFragment())
         }
-
+        setHasOptionsMenu(true)
         return binding.root
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater?.inflate(R.menu.overflow_menu, menu)
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return NavigationUI.onNavDestinationSelected(item,
+        requireView().findNavController())
+                || super.onOptionsItemSelected(item)
+    }
+}
