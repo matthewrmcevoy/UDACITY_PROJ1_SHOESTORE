@@ -32,21 +32,28 @@ class ShoeListFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         val binding: ShoelistFragmentBinding = DataBindingUtil.inflate(
             inflater, R.layout.shoelist_fragment, container, false
         )
-        val b2: ShoeEntryBinding = DataBindingUtil.inflate(
-            inflater, R.layout.shoe_entry, container, false
-        )
-        binding.linearShoeList.addView(b2.shoeItem)
-        viewModel.shoesList.observe(viewLifecycleOwner, Observer{
+
+        binding.lifecycleOwner = this
+
+        viewModel.shoesList.observe(viewLifecycleOwner, Observer{ shoeList->
+            for(item in shoeList){
+                val shoeItem = ShoeEntryBinding.inflate(layoutInflater)
+                shoeItem.shoeData = item
+                binding.linearShoeList.addView(shoeItem.root)
+            }
+        })
+
+        /**viewModel.shoesList.observe(viewLifecycleOwner, Observer{
             sla ->
             for(shoe in sla) {
                 binding.linearShoeList.addView(shoe_item)
             Timber.i("Adding a shoe through observer")
         }
-        })
+        }) */
 
         binding.addShoeBttn.setOnClickListener{
         findNavController().navigate(ShoeListFragmentDirections.actionShoeListFragmentToShoeDetailFragment())
