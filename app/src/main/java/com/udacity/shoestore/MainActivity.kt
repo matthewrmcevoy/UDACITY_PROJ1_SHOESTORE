@@ -24,12 +24,9 @@ var bLock = 0
         NavigationUI.setupActionBarWithNavController(this, navController)
 
         navController.addOnDestinationChangedListener { nc: NavController, nd: NavDestination, args: Bundle? ->
-            if (nd.id == R.layout.shoelist_fragment) {
-                Timber.i("Navigation to shoeList")
-                bLock= 1
-            } else {
-                Timber.i("Navigation somewhere anywhere")
-                bLock = 0
+            Timber.i("$nc, $nd")
+            if(nd.label =="Shoe Inventory"){
+                Timber.i("successfully caught Shoe Inventory navigation")
             }
         }
 

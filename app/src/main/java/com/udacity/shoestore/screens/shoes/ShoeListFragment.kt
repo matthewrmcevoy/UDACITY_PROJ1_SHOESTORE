@@ -70,5 +70,6 @@ class ShoeListFragment : Fragment() {
         return NavigationUI.onNavDestinationSelected(item,
         requireView().findNavController())
                 || super.onOptionsItemSelected(item)
+        Timber.i("onOptionsItemSelected called")
     }
 }
