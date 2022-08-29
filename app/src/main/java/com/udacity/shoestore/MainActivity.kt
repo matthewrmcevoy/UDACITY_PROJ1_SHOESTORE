@@ -27,6 +27,10 @@ var bLock = 0
             Timber.i("$nc, $nd")
             if(nd.label =="Shoe Inventory"){
                 Timber.i("successfully caught Shoe Inventory navigation")
+                bLock = 1
+            }
+            else{
+                bLock = 0
             }
         }
 
