@@ -46,14 +46,6 @@ class ShoeListFragment : Fragment() {
             }
         })
 
-        /**viewModel.shoesList.observe(viewLifecycleOwner, Observer{
-            sla ->
-            for(shoe in sla) {
-                binding.linearShoeList.addView(shoe_item)
-            Timber.i("Adding a shoe through observer")
-        }
-        }) */
-
         binding.addShoeBttn.setOnClickListener{
         findNavController().navigate(ShoeListFragmentDirections.actionShoeListFragmentToShoeDetailFragment())
         }
