@@ -16,6 +16,7 @@ import com.udacity.shoestore.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     var upNavigation = MutableLiveData<Boolean>()
+    lateinit var destinationTitle : String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_main)
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { nc: NavController, nd: NavDestination, args: Bundle? ->
             Timber.i("$nc, $nd")
+            destinationTitle = nd.label.toString()
             if(nd.label =="Shoe Inventory"){
                 Timber.i("successfully caught Shoe Inventory navigation")
                 upNavigation.value = false
@@ -41,10 +43,12 @@ class MainActivity : AppCompatActivity() {
             //NavigationUI.setupActionBarWithNavController(this, navController)
             supportActionBar?.setDisplayShowHomeEnabled(true)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            supportActionBar?.title = destinationTitle
         }
             else{
             supportActionBar?.setDisplayShowHomeEnabled(false)
             supportActionBar?.setDisplayHomeAsUpEnabled(false)
+            supportActionBar?.title = destinationTitle
                 Timber.i("setHomeButtonEnabled called")
         }
         })
